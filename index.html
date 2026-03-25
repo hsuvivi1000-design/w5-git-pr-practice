@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8">
   <title>W5 PR 練習 Chatbot</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <div class="container">
@@ -38,7 +40,7 @@
       userDiv.className = 'message user';
       const timeUser = document.createElement('span');
       timeUser.className = 'timestamp';
-      timeUser.textContent = new Date().toLocaleTimeString('zh-TW', {hour:'2-digit', minute:'2-digit'});
+      timeUser.textContent = new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
       userDiv.textContent = text;
       userDiv.appendChild(timeUser);
       chatBox.appendChild(userDiv);
@@ -47,7 +49,7 @@
       botDiv.className = 'message bot';
       const timeBot = document.createElement('span');
       timeBot.className = 'timestamp';
-      timeBot.textContent = new Date().toLocaleTimeString('zh-TW', {hour:'2-digit', minute:'2-digit'});
+      timeBot.textContent = new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
       botDiv.textContent = `你說了「${text}」！`;
       botDiv.appendChild(timeBot);
       chatBox.appendChild(botDiv);
@@ -56,10 +58,20 @@
       chatBox.scrollTop = chatBox.scrollHeight;
     }
 
-    document.getElementById('user-input').addEventListener('keypress', function(e) {
+    document.getElementById('user-input').addEventListener('keypress', function (e) {
       if (e.key === 'Enter') sendMessage();
     });
+
+    function searchMessages(keyword) {
+      const messages = document.querySelectorAll('#chat-box .message');
+      const query = keyword.trim().toLowerCase();
+      messages.forEach(msg => {
+        const text = msg.textContent.toLowerCase();
+        msg.classList.toggle('hidden', query !== '' && !text.includes(query));
+      });
+    }
   </script>
 
 </body>
+
 </html>
